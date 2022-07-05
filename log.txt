@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "utils.py", line 40, in move_mumu_to_front
+    cW.find_window_regex(regex)
+  File "D:\AndroidSDK\AntiSG_UpperScreen_SogouInput_v1030_commit\Model\FrontWindow.py", line 33, in find_window_regex
+    win32gui.EnumWindows(self._window_enum_callback, regex)
+  File "D:\AndroidSDK\AntiSG_UpperScreen_SogouInput_v1030_commit\Model\FrontWindow.py", line 28, in _window_enum_callback
+    if self._hwnd is None and re.match(regex, str(win32gui.GetWindowText(hwnd))) is not None:
+  File "C:\Python38\lib\re.py", line 191, in match
+    return _compile(pattern, flags).match(string)
+  File "C:\Python38\lib\re.py", line 304, in _compile
+    p = sre_compile.compile(pattern, flags)
+  File "C:\Python38\lib\sre_compile.py", line 764, in compile
+    p = sre_parse.parse(p, flags)
+  File "C:\Python38\lib\sre_parse.py", line 948, in parse
+    p = _parse_sub(source, state, flags & SRE_FLAG_VERBOSE, 0)
+  File "C:\Python38\lib\sre_parse.py", line 443, in _parse_sub
+    itemsappend(_parse(source, state, verbose, nested + 1,
+  File "C:\Python38\lib\sre_parse.py", line 668, in _parse
+    raise source.error("nothing to repeat",
+re.error: nothing to repeat at position 0

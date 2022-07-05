@@ -1,0 +1,19 @@
+#INIT_ENGINE
+#SWAP_METHOD
+26key pinyin fuzzykey
+
+#INPUT_KEYS
+daxue
+
+#GET_WORDS
+20
+
+#SELECT_WORDS
+大学
+
+#GET_ASSOCIATE
+30
+
+#RESET
+
+#RELEASE_ENGINE

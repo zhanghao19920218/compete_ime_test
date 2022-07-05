@@ -1,0 +1,52 @@
+{
+    "wid_1080": {
+        "height": 960,
+        "keyboards": {
+            "menu_key": {
+                "x": 270,
+                "y": 140
+            },
+            "setting": {
+                "x": 87
+            },
+            "all_setting": {
+                "x": 149,
+                "y": 760
+            },
+            "pinyin_9key": {
+                "x": 145,
+                "y": 310
+            },
+            "pinyin_26key": {
+                "x": 406,
+                "y": 310
+            },
+            "keys_26key": {
+                "Q": {
+                    "x": 60,
+                    "y": 300
+                },
+                "A": {
+                    "x": 114
+                },
+                "Z": {
+                    "x": 225
+                },
+                "single_item": {
+                    "width": 107,
+                    "height": 170
+                }
+            },
+            "keys_9key": {
+                "smell": {
+                    "x": 300,
+                    "y": 290
+                },
+                "single_item": {
+                    "width": 242,
+                    "height": 165
+                }
+            }
+        }
+    }
+}
