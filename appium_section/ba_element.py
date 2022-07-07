@@ -144,6 +144,9 @@ class BAElement(object):
         """
         self._driver.keyevent(keycode=key_event)
 
+    def driver_wait(self, seconds: int):
+        self._driver.implicitly_wait(seconds)
+
     def click_keyboard(self,
                        key_board_name: KeyboardName):
         """

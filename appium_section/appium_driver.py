@@ -28,7 +28,7 @@ class AppiumDriver(object):
                                   "deviceName": model.deviceName,
                                   "appPackage": model.appPackage,
                                   "appActivity": model.appActivity,
-                                  "newCommandTimeout": int(model.newCommandTimeout),
+                                  "newCommandTimeout": 8000,
                                   "automationName": "UiAutomator2",
                                   "systemPort": f"{model.systemPort}",
                                   "udid": model.udid,

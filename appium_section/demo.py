@@ -38,8 +38,26 @@ def run_demo(device_index: int,
 if __name__ == '__main__':
     print("测试完成")
     device_model = DeviceUtilsModel.shared(index=0).devices_models[0]
-    ba_appium_util = DeviceUtilsModel.shared(index=0).devices_appium_ms[0]
-
+    common_driver: BAAppiumUtils = DeviceUtilsModel.shared(index=0).devices_appium_ms
+    # common_driver.set_ime_keyboard(ime_type=device_model.keyboard_type)
+    # time.sleep(2)
+    common_driver.wait_seconds(2)
+    common_driver.get_input_text_view()
+    common_driver.get_input_text_view()
+    # time.sleep(0.5)
+    common_driver.change_menu(key_board_type=KeyboardType.Keyboard26Key,
+                              key_board_brand=InputCom.IflytekReal,
+                              is_english=False)
+    for alpha_tmp in 'zuotiannichilema':
+        common_driver.input_alpha_26key(key_board_brand=InputCom.IflytekReal,
+                                        alpha_letter=alpha_tmp)
+    common_driver.down_arrow_action(key_board_brand=InputCom.IflytekReal)
+    common_driver.press_single_pick(key_board_brand=InputCom.IflytekReal)
+    common_driver.choose_more_candidates(keyboard_brand=InputCom.IflytekReal)
+    common_driver.press_single_pick(key_board_brand=InputCom.IflytekReal)
+    common_driver.choose_more_candidates(keyboard_brand=InputCom.IflytekReal)
+    common_driver.delete_more_candidates(keyboard_brand=InputCom.IflytekReal)
+    common_driver.choose_more_candidates(keyboard_brand=InputCom.IflytekReal)
     # devices_id = [0, 1]
     # device_models = DeviceUtilsModel.shared(index=devices_id).devices_appium_ms
     # devices_type = [InputCom.IflyTek, InputCom.IflytekReal]

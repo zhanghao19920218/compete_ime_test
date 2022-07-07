@@ -17,10 +17,10 @@ BAIDU_PACKAGENAME: str = "com.baidu.input"  # 百度输入法
 
 IME_PACKAGENAME: str = "com.iflytek.inputmethod.imehook"  # 测试的apk
 
-MOBILE_SIZE_JSON_PATH: str = r"D:\AndroidSDK\compete_inputtest\res\mobile.json"
+MOBILE_SIZE_JSON_PATH: str = r"/Users/mason/Desktop/compete_inputtest/res/mobile.json"
 
 ANDROID_VERSION: str = "6.0.1"
 
-CONFIG_POS: str = r"D:\AndroidSDK\compete_inputtest\config\config.yaml"
+CONFIG_POS: str = r"/Users/mason/Desktop/compete_inputtest/config/config.yaml"
 
 INDEX_JSON_PATH: str = r"index_info"  # temporary index info json

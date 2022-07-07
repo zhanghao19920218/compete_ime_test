@@ -675,7 +675,7 @@ class KeyboardPos(object):
             return KeyboardName(x=206, y=1003)
         elif self.keyboard_type == InputCom.IflytekReal:
             return KeyboardName(x=self.key26_q.x,
-                                y=self.key26_q.y - (self.single_item_size.height/2))
+                                y=self.key26_q.y - (self.single_item_size.height / 2))
         else:
             return KeyboardName(x=206, y=960)
 
@@ -718,6 +718,9 @@ class KeyboardPos(object):
             return KeyboardName(x=850, y=1010)
         elif self.keyboard_type == InputCom.Baidu:
             return KeyboardName(x=828, y=1013)
+        elif self.keyboard_type == InputCom.IflytekReal:
+            return KeyboardName(x=self.key26_q.x + (9 * self.single_item_size.width),
+                                y=self.key26_q.y - int(self.single_item_size.height/2))
         else:
             return KeyboardName(x=824, y=960)
 
@@ -876,3 +879,30 @@ class KeyboardPos(object):
         """
         if self.keyboard_type == InputCom.Sogou:
             return KeyboardName(x=830, y=1524)
+
+    def Keyboard_SwitchSingle(self) -> KeyboardName:
+        """
+        点击切换单字和词语
+        :return:
+        """
+        if self.keyboard_type == InputCom.IflytekReal:
+            return KeyboardName(x=self.key26_q.x + (9 * self.single_item_size.width),
+                                y=self.key26_q.y - int(self.single_item_size.height/2))
+
+    def Keyboard_More_ChooseWord(self) -> KeyboardName:
+        """
+        Choose More Word
+        :return:
+        """
+        if self.keyboard_type == InputCom.IflytekReal:
+            return KeyboardName(x=self.key26_q.x,
+                                y=self.key26_q.y)
+
+    def KeyBoard_More_Delete(self) -> KeyboardName:
+        """
+        More Candidates Delete Action
+        :return:
+        """
+        if self.keyboard_type == InputCom.IflytekReal:
+            return KeyboardName(x=self.key26_q.x + (9 * self.single_item_size.width),
+                                y=self.key26_q.y)

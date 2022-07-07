@@ -1,17 +1,17 @@
 # This configuration describe the appium want
 test_devices:
   - platformName: "Android"
-    platformVersion: "7.1.2"
-    deviceName: "127.0.0.1:62001"
+    platformVersion: "11.0"
+    deviceName: "154614230400AQL"
     appPackage: "com.iflytek.inputmethod.imehook"
     appActivity: "com.iflytek.inputmethod.imehook.MainActivity"
     newCommandTimeout: "8000"
     systemPort: 8200
     noReset: False
     port: 4000
-    udid: "127.0.0.1:62001"
+    udid: "154614230400AQL"
     iflytekPort: "8888"
-    brand: 1
+    brand: 4
     read_file_path: "test02"
     keyboard_type: 2
     test_type: 4

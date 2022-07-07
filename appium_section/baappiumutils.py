@@ -33,14 +33,13 @@ class BAAppiumUtils(object):
         """
         self.el.quit_session()
 
-    @staticmethod
-    def wait_seconds(seconds: float):
+    def wait_seconds(self, seconds: int):
         """
         wait for some seconds
         :param seconds:
         :return:
         """
-        time.sleep(seconds)
+        self.el.driver_wait(seconds=seconds)
 
     def back_action(self):
         """
@@ -106,7 +105,7 @@ class BAAppiumUtils(object):
         self.el.click_keyboard(key_board_name=KeyboardPos(keyboard_type=key_board_brand,
                                                           screen_height=self.el.get_screen_height)
                                .MenuKeyBoard())
-        time.sleep(1)
+        # time.sleep(0.5)
         if is_english:
             if key_board_type == KeyboardType.Keyboard9Key:
                 self.el.click_keyboard(key_board_name=KeyboardPos(keyboard_type=key_board_brand,
@@ -300,4 +299,37 @@ class BAAppiumUtils(object):
         self.el.click_keyboard(key_board_name=KeyboardPos(keyboard_type=key_board_brand,
                                                           screen_height=self.el.get_screen_height)
                                .Keyboard_Enter())
+
+    def press_single_pick(self,
+                          key_board_brand: InputCom):
+        """
+        pressed single and word switch
+        :param key_board_brand:
+        :return:
+        """
+        self.el.click_keyboard(key_board_name=KeyboardPos(keyboard_type=key_board_brand,
+                                                          screen_height=self.el.get_screen_height)
+                               .Keyboard_SwitchSingle())
+
+    def choose_more_candidates(self,
+                               keyboard_brand: InputCom):
+        """
+        pressed single and word
+        :param keyboard_brand:
+        :return:
+        """
+        self.el.click_keyboard(key_board_name=KeyboardPos(keyboard_type=keyboard_brand,
+                                                          screen_height=self.el.get_screen_height)
+                               .Keyboard_More_ChooseWord())
+
+    def delete_more_candidates(self,
+                               keyboard_brand: InputCom):
+        """
+        delete more candidates
+        :param keyboard_brand:
+        :return:
+        """
+        self.el.click_keyboard(key_board_name=KeyboardPos(keyboard_type=keyboard_brand,
+                                                          screen_height=self.el.get_screen_height)
+                               .KeyBoard_More_Delete())
 
