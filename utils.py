@@ -145,3 +145,39 @@ def run_multicore(command: str,
         print(f"command line: {command} {python_file} {parameter}")
         thread = Thread(target=run_command_line, args=[f"{command} {python_file} {parameter}"])
         thread.start()
+
+
+def pinyin_to_num(pinyin: str) -> str:
+    """
+    拼音转为数字
+    :param pinyin:
+    :return:
+    """
+    ret: str = ""
+    for single_item in pinyin:
+        ret += f"{single_alpha_to_num(alpha=single_item)}"
+    return ret
+
+
+def single_alpha_to_num(alpha: str) -> int:
+    """
+    单独的汉字转为数字
+    :param alpha:
+    :return:
+    """
+    if alpha in 'abc':
+        return 2
+    elif alpha in 'def':
+        return 3
+    elif alpha in 'ghi':
+        return 4
+    elif alpha in 'jkl':
+        return 5
+    elif alpha in 'mno':
+        return 6
+    elif alpha in 'pqrs':
+        return 7
+    elif alpha in 'tuv':
+        return 8
+    elif alpha in 'wxyz':
+        return 9

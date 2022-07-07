@@ -88,7 +88,7 @@ def delete_upper_screen_result(keyboard_brand: InputCom,
     """
     appium_util.delete_action(key_board_brand=keyboard_brand,
                               key_board_type=keyboard_type,
-                              duration_time=200 * word_len)
+                              duration_time=400)
     time.sleep(0.5)
 
 

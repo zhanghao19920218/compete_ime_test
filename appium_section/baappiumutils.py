@@ -105,7 +105,7 @@ class BAAppiumUtils(object):
         self.el.click_keyboard(key_board_name=KeyboardPos(keyboard_type=key_board_brand,
                                                           screen_height=self.el.get_screen_height)
                                .MenuKeyBoard())
-        # time.sleep(0.5)
+        time.sleep(1)
         if is_english:
             if key_board_type == KeyboardType.Keyboard9Key:
                 self.el.click_keyboard(key_board_name=KeyboardPos(keyboard_type=key_board_brand,
@@ -235,10 +235,10 @@ class BAAppiumUtils(object):
         :param key_board_brand:
         :return:
         """
-        self.el.go_back()
-        # self.el.click_keyboard(key_board_name=KeyboardPos(keyboard_type=key_board_brand,
-        #                                                   screen_height=self.el.get_screen_height)
-        #                        .Keyboard_Return())
+        # self.el.go_back()
+        self.el.click_keyboard(key_board_name=KeyboardPos(keyboard_type=key_board_brand,
+                                                          screen_height=self.el.get_screen_height)
+                               .Keyboard_Return())
 
     def clear_button_action(self,
                             key_board_brand: InputCom):

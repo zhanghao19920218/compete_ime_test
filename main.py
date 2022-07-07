@@ -176,7 +176,7 @@ def old_ime_test(device_id: int):
     # 是否测试云端丢失率, ConnectionType是上下文属性
     test_type: TestType = DeviceUtilsModel.shared(index=device_id).devices_models[device_id].test_type
     # 是否需要开启键盘向下的箭头(仅在解码时候出现)
-    is_need_open_down: bool = True
+    is_need_open_down: bool = False
     # 是否需要查询用户词数量
     is_need_user_words_count: bool = False
     # 创建参数对象

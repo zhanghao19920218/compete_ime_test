@@ -17,7 +17,7 @@ from Parameter import *
 from Model.OutputJsonModel import OutputJsonModel
 from Model.ResultReturnModel import ResultReturnModel
 from Model.ReturnTypeModel import ReturnTypeModel, DecodeReturnModel
-from utils import create_time_stamp
+from utils import create_time_stamp, pinyin_to_num
 
 
 def net_work_status_check() -> bool:
@@ -93,7 +93,8 @@ def run(parameter: Parameter,
         net_work_status=True,
         time_stamp="",
         last_word="",
-        is_name_pattern=False
+        is_name_pattern=False,
+        pinyin=""
     )
     index = -1
     try:
@@ -124,7 +125,8 @@ def run(parameter: Parameter,
         time_stamp: str = create_time_stamp()
         if return_socket_str is not None:
             model: ReturnTypeModel = update_json(return_socket_str=return_socket_str,
-                                                 ime_type=parameter.ime_type)
+                                                 ime_type=parameter.ime_type,
+                                                 is_nine=parameter.ime_keyboard_type == KeyboardType.Keyboard9Key)
             # 获取解码结果
             decode_return_model.candidate_list = model.candidate_list
             # 获取云端解码结果
@@ -137,11 +139,14 @@ def run(parameter: Parameter,
             decode_return_model.time_stamp = time_stamp
             # 返回显屏词
             decode_return_model.last_word = model.last_word
+            decode_return_model.pinyin = model.pinyin
             decode_return_model.is_name_pattern = model.is_name_pattern
             while model.candidate_length == 0:
                 # 如果没有返回值就重启socket
                 raise EmulatorError(message="解码结果没有候选词")
-
+            pinyin_tmp: str = pinyin_to_num(pinyin=complete_word) if parameter.ime_keyboard_type == KeyboardType.Keyboard9Key else complete_word
+            if pinyin_tmp != decode_return_model.pinyin and not parameter.is_not_iflytek():
+                raise EmulatorError(message="拼音字符串不一致")
             # 云端解码结果没出
             # while len(model.cloud_list) == 0 and IME_Constant.IME_REBOOT_SOCKET_TIMES > 0:
             #     # 重置键盘
@@ -169,7 +174,8 @@ def run(parameter: Parameter,
                         if associate_json_str is not None:
                             decode_return_model.error_type = ErrorInfoType.Success
                             associate_model: ReturnTypeModel = update_json(return_socket_str=associate_json_str,
-                                                                           ime_type=parameter.ime_type)
+                                                                           ime_type=parameter.ime_type,
+                                                                           is_nine=parameter.ime_keyboard_type == KeyboardType.Keyboard9Key)
                             decode_return_model.associate_list = associate_model.candidate_list
                             if associate_model.candidate_list == model.candidate_list:
                                 raise EmulatorError(message="解码结果和联想结果一致，没有触发点击键")
@@ -182,7 +188,8 @@ def run(parameter: Parameter,
                                                                candi_list=model.candidate_list,
                                                                above_result=above_word,
                                                                pick_step_num=0,
-                                                               is_in_single_picker=False)
+                                                               is_in_single_picker=False,
+                                                               device_index=device_index)
                     if result == ErrorInfoType.DecodeError or result == ErrorInfoType.OverflowStep:
                         decode_return_model.error_type = result
                     else:
@@ -192,7 +199,8 @@ def run(parameter: Parameter,
                         if associate_json_str is not None:
                             decode_return_model.error_type = ErrorInfoType.Success
                             associate_model: ReturnTypeModel = update_json(return_socket_str=associate_json_str,
-                                                                           ime_type=parameter.ime_type)
+                                                                           ime_type=parameter.ime_type,
+                                                                           is_nine=parameter.ime_keyboard_type == KeyboardType.Keyboard9Key)
                             decode_return_model.associate_list = associate_model.candidate_list
     except EmulatorError as emulatorError:
         # 重置键盘
@@ -212,15 +220,14 @@ def run(parameter: Parameter,
 
 def reset_result(word_len, parameter, device_index):
     reset_input(parameter.sock, parameter.sock_file)
-    if parameter.is_not_iflytek():
+    if parameter.ime_type == InputCom.Baidu:
         if not parameter.is_need_user_word_count:
             delete_upper_screen_result(word_len=word_len,
                                        keyboard_brand=parameter.ime_type,
                                        keyboard_type=parameter.ime_keyboard_type,
                                        appium_util=DeviceUtilsModel.shared(index=device_index).devices_appium_ms)
-        else:
-            clear_button_action(parameter=parameter,
-                                ba_appium_util=DeviceUtilsModel.shared(index=device_index).devices_appium_ms)
+    clear_button_action(parameter=parameter,
+                        ba_appium_util=DeviceUtilsModel.shared(index=device_index).devices_appium_ms)
 
 
 def run_service(parameter: Parameter,
@@ -374,15 +381,18 @@ def write_info_file(candidate_list: List[str],
                     json_data=origin_json_str)
         writer(file_name=file_name,
                data=line_str,
-               out_put_type=input_parameter.input_date_item_type)
+               out_put_type=input_parameter.input_date_item_type,
+               device_index=device_index)
 
 
 def update_json(return_socket_str: str,
-                ime_type: InputCom) -> ReturnTypeModel:
+                ime_type: InputCom,
+                is_nine: bool) -> ReturnTypeModel:
     """
     获取socket返回json中候选词长度，并处理特殊格式 转化成统一格式
     :param return_socket_str: 获取的json字符串
     :param ime_type: 输入类型格式: 搜狗还是讯飞输入法
+    :param is_nine: 是否是9key
     :return:
     """
     return_model: ReturnTypeModel = ReturnTypeModel(
@@ -392,7 +402,8 @@ def update_json(return_socket_str: str,
         origin_json="",
         target_pos=0,
         last_word="",
-        is_name_pattern=False
+        is_name_pattern=False,
+        pinyin=""
     )
     return_socket_json = json.loads(return_socket_str)
     cloud_result_list: List[str] = []  # 云端结果数组
@@ -424,6 +435,7 @@ def update_json(return_socket_str: str,
         return_model.origin_json = return_socket_json
         return_model.target_pos = model.result.target
         return_model.last_word = model.result.last_word
+        return_model.pinyin = model.result.pinyin if not is_nine else pinyin_to_num(pinyin=model.result.pinyin)
     return return_model
 
 

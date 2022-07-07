@@ -28,7 +28,8 @@ def above_update_json(return_socket_str: str,
         origin_json="",
         target_pos=0,
         last_word="",
-        is_name_pattern=False
+        is_name_pattern=False,
+        pinyin=""
     )
     return_socket_json = json.loads(return_socket_str)
     cloud_result_list: List[str] = []  # 云端结果数组

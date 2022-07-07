@@ -16,6 +16,7 @@ class ReturnTypeModel:
                  target_pos: int,
                  last_word: str,
                  is_name_pattern: bool,
+                 pinyin: str,
                  candidate_length: int):
         """
         初始化
@@ -26,6 +27,7 @@ class ReturnTypeModel:
         :param target_pos: 获取词汇位置
         :param last_word: 最后上屏的词
         :param is_name_pattern: 是不是人名模式
+        :param pinyin: 是否拼音
         """
         self.origin_json = origin_json
         self.cloud_list = cloud_list
@@ -34,6 +36,7 @@ class ReturnTypeModel:
         self.target_pos = target_pos
         self.last_word = last_word
         self.is_name_pattern = is_name_pattern
+        self.pinyin = pinyin
 
 
 class DecodeReturnModel:
@@ -51,6 +54,7 @@ class DecodeReturnModel:
                  time_stamp: str,
                  last_word: str,
                  is_name_pattern: bool,
+                 pinyin: str,
                  error_type: ErrorInfoType):
         """
         初始化
@@ -62,8 +66,10 @@ class DecodeReturnModel:
         :param net_work_status: 网络状态是否正常
         :param time_stamp: 时间戳
         :param is_name_pattern: 是否触发人名模式
+        :param pinyin: 拼音字符串
         :param last_word: 最后屏显的词
         """
+        self.pinyin = pinyin
         self.associate_list = associate_list
         self.cloud_list = cloud_list
         self.origin_json_str = origin_json_str

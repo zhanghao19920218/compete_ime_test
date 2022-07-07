@@ -9,7 +9,16 @@ class ResultInfoModel:
                  candidates: str,
                  cloud: str,
                  last_word: str,
-                 target: int):
+                 target: int,
+                 pinyin: str):
+        """
+        初始化结果
+        :param candidates:
+        :param cloud:
+        :param last_word:
+        :param target:
+        :param pinyin:
+        """
         filter_str: str = candidates.replace(" ", "").strip("[]")
         if len(filter_str) == 0:  # 如果解码为空字符就是空数组
             self.candidates = []
@@ -18,6 +27,7 @@ class ResultInfoModel:
         self.cloud = cloud
         self.target = target
         self.last_word = last_word
+        self.pinyin = pinyin
 
     @staticmethod
     def dict_to_object(d: dict):
@@ -26,7 +36,8 @@ class ResultInfoModel:
             candidates=d.get('candidates') if 'candidates' in d.keys() else "[]",
             cloud=d.get('cloud') if 'cloud' in d.keys() else None,
             target=d.get('target') if 'target' in d.keys() else 0,
-            last_word=d.get('last_position')
+            last_word=d.get('last_position'),
+            pinyin=d.get('pinyin')
         )
 
     def to_json(self):
