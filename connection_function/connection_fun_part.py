@@ -109,7 +109,8 @@ def run(parameter: Parameter,
         net_work_status=True,
         time_stamp="",
         is_name_pattern=False,
-        last_word=""
+        last_word="",
+        pinyin=""
     )
     index = -1
     try:
@@ -169,7 +170,7 @@ def reset_result(word_len: int,
                  parameter: Parameter,
                  device_index: int):
     reset_input(parameter.sock, parameter.sock_file)
-    if parameter.is_not_iflytek():
+    if parameter.ime_type == InputCom.Baidu:
         if not parameter.is_need_user_word_count:
             delete_upper_screen_result(word_len=word_len,
                                        keyboard_brand=parameter.ime_type,
@@ -297,7 +298,8 @@ def update_json(return_socket_str: str,
         origin_json="",
         target_pos=0,
         last_word="",
-        is_name_pattern=False
+        is_name_pattern=False,
+        pinyin=""
     )
     return_socket_json = json.loads(return_socket_str)
     cloud_result_list: List[str] = []  # 云端结果数组
