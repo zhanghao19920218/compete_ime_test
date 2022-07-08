@@ -244,3 +244,7 @@ class BAElement(object):
         :return:
         """
         return self._at.get_screen_height
+
+    @property
+    def current_activity(self):
+        return self._driver.current_activity;

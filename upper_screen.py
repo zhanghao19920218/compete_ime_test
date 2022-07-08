@@ -97,7 +97,7 @@ def match_upper_screen(input_parameter: Parameter,
                         break
                 if index == -1:
                     # 单字选词也没有改词汇，选择报错
-                    if input_parameter.is_not_iflytek():
+                    if input_parameter.ime_type == InputCom.Baidu:
                         back_line_candidate(ime_type=input_parameter.ime_type,
                                             appium_util=DeviceUtilsModel.shared(index=device_index).devices_appium_ms)
                     errorType = ErrorInfoType.DecodeError
@@ -115,7 +115,7 @@ def match_upper_screen(input_parameter: Parameter,
                     )
             else:
                 # 单字选词也没有改词汇，选择报错
-                if input_parameter.is_not_iflytek():
+                if input_parameter.ime_type == InputCom.Baidu:
                     back_line_candidate(ime_type=input_parameter.ime_type,
                                         appium_util=DeviceUtilsModel.shared(index=device_index).devices_appium_ms)
                 errorType = ErrorInfoType.DecodeError
@@ -144,7 +144,7 @@ def match_upper_screen(input_parameter: Parameter,
         # 如果分步选词的步数大于3，就相当于获取联想失效
         if pick_step_num > 3 and input_parameter.is_pick_three_step_sys:
             # 如果打开了候选词界面，需要关闭候选词
-            if is_in_single_picker and input_parameter.is_not_iflytek():
+            if is_in_single_picker and input_parameter.ime_type == InputCom.Baidu:
                 back_line_candidate(ime_type=input_parameter.ime_type,
                                     appium_util=DeviceUtilsModel.shared(index=device_index).devices_appium_ms)
             errorType = ErrorInfoType.OverflowStep
@@ -152,7 +152,7 @@ def match_upper_screen(input_parameter: Parameter,
         else:
             send_upper_screen_request(input_parameter.sock, input_parameter.sock_file, index, False)
             time.sleep(IME_Constant.IME_COMMIT_DELAY_TIME)
-            if input_parameter.is_not_iflytek():
+            if input_parameter.ime_type == InputCom.Baidu:
                 # 搜狗需要按键触发
                 enter_blank_space(parameter=input_parameter,
                                   ba_appium_util=DeviceUtilsModel.shared(index=device_index).devices_appium_ms)
@@ -164,7 +164,7 @@ def match_upper_screen(input_parameter: Parameter,
                     # 如果是讯飞输入法, 关闭候选词界面
                     down_arrow_pressed(ime_type=input_parameter.ime_type,
                                        appium_util=DeviceUtilsModel.shared(index=device_index).devices_appium_ms)
-                elif input_parameter.is_not_iflytek() and full_word != above_result:
+                elif input_parameter.ime_type == InputCom.Baidu and full_word != above_result:
                     back_line_candidate(ime_type=input_parameter.ime_type,
                                         appium_util=DeviceUtilsModel.shared(index=device_index).devices_appium_ms)
 
@@ -188,7 +188,7 @@ def match_upper_screen(input_parameter: Parameter,
                     errorType = ErrorInfoType.Success
                     return errorType
             else:
-                if input_parameter.is_not_iflytek():
+                if input_parameter.ime_type == InputCom.Baidu:
                     back_line_candidate(ime_type=input_parameter.ime_type,
                                         appium_util=DeviceUtilsModel.shared(index=device_index).devices_appium_ms)
                 errorType = ErrorInfoType.DecodeError

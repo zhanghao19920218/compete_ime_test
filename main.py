@@ -73,7 +73,6 @@ def main(parameter_inner: Parameter,
     """
     # 定义临时索引JSONObject
     # 获取socket，通过IME_type进行区分创建
-    label.begin
     get_socket_by_IME_type(parameter_inner,
                            device_index=device_index)
     # 获取待抓取文件列表
@@ -85,7 +84,12 @@ def main(parameter_inner: Parameter,
     # 获取抓取结果进度
     parameter_inner.speed_of_progress = get_temp_file_info(device_index=device_index)
     index, client_file, completed_grab_file_list = get_index_info(parameter_inner.speed_of_progress)
-
+    label.begin
+    # 弹起键盘
+    ba_appium_utils = DeviceUtilsModel.shared(index=device_index).devices_appium_ms
+    ba_appium_utils.start_app()
+    time.sleep(1)
+    ba_appium_utils.get_input_text_view()
     for i in range(0, len(stay_grab_file_list)):
         path = os.path.join(parameter_inner.input_file_path, stay_grab_file_list[i])
         if os.path.isfile(path) and path.endswith(".txt"):
@@ -115,10 +119,14 @@ def main(parameter_inner: Parameter,
                 except EmulatorError as emulatorError:
                     print(emulatorError.message)
                     time.sleep(IME_Constant.IME_REBOOT_SOCKET)
+                    ba_appium_utils = DeviceUtilsModel.shared(index=device_index).devices_appium_ms
+                    ba_appium_utils.hide_keyboard()
                     goto.begin
                 except AppiumError as appiumError:
                     print(appiumError.message)
                     time.sleep(IME_Constant.IME_REBOOT_SOCKET)
+                    ba_appium_utils = DeviceUtilsModel.shared(index=device_index).devices_appium_ms
+                    ba_appium_utils.hide_keyboard()
                     goto.begin
 
                 end = datetime.datetime.now()

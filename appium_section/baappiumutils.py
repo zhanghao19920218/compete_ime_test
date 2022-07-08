@@ -24,7 +24,9 @@ class BAAppiumUtils(object):
         启动app
         :return:
         """
-        self.el.start_app()
+        activity = self.el.current_activity
+        if '.MainActivity' != activity:
+            self.el.start_app()
 
     def quit_session(self):
         """

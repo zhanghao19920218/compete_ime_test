@@ -59,7 +59,7 @@ def socket_create_by_(socket_parameter: Parameter,
     """
     初始化socket参数
     :param socket_parameter:
-    :param device_index: 设备的index
+    :param iflytek_port: i讯飞的端口
     :return: return socket string
     """
     if socket_parameter.sock is not None:
