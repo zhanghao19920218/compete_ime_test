@@ -145,7 +145,7 @@ def run(parameter: Parameter,
                 # 如果没有返回值就重启socket
                 raise EmulatorError(message="解码结果没有候选词")
             pinyin_tmp: str = pinyin_to_num(pinyin=complete_word) if parameter.ime_keyboard_type == KeyboardType.Keyboard9Key else complete_word
-            if pinyin_tmp != decode_return_model.pinyin and not parameter.is_not_iflytek():
+            if pinyin_tmp != decode_return_model.pinyin and parameter.is_not_iflytek():
                 raise EmulatorError(message="拼音字符串不一致")
             # 云端解码结果没出
             # while len(model.cloud_list) == 0 and IME_Constant.IME_REBOOT_SOCKET_TIMES > 0:
